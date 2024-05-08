@@ -1,0 +1,72 @@
+.App {
+  background: linear-gradient(to right, #afd3a5, #9bd5d4);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+
+.header {
+  background-color:#336061;
+  font-size: 20px;
+  padding: 25px;
+  color: white;
+  margin-top: 0%;
+}
+
+.text{
+  font-size: 20px;
+  text-align: center;
+  color: #1f2a2d;
+
+}
+.title{
+  font-size: 20px;
+  text-align: center;
+  color: #2a5252;
+}
+.content{
+  text-align: center;
+  font-size: 15px;
+  color: #336061;
+}
+
+.button{
+  background-color: #0c9777;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.instr{
+  font-size: 15px;
+  background-color: rgb(235, 236, 227);
+  color:rgb(81, 104, 86);
+  padding: 2px; /* Padding around the text */
+  border-left: 1px solid #333; /* Left border */
+  display: inline-block;  
+}
+
+.instructions {
+  display: block;
+}
+.offscreen {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.errmsg{
+  color: red;
+  background-color: #ffecec;
+  border: 1px solid #ffbaba;
+  padding: 8px;
+  margin-bottom: 10px;
+}
