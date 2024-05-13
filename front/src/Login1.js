@@ -3,28 +3,23 @@ import AuthContext from "./context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "./api/axios";
 
-const LOGIN_URL = "/ManagerRegister";
+const LOGIN_URL = "/Login";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
-  const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    nameInputRef.current.focus();
-  }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [name, email, pwd]);
+  }, [email, pwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +27,6 @@ const Login = () => {
       const response = await axios.post(
         LOGIN_URL,
         {
-          name: name,
           email: email,
           pwd: pwd,
         },
@@ -40,15 +34,13 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response.data));
+      console.log(response.data.message);
       const accessToken = response.data.accessToken;
       const roles = response.data.roles;
-      setAuth({ name, email, pwd, roles, accessToken });
-      setName("");
+      setAuth({ email, pwd, roles, accessToken });
       setEmail("");
       setPwd("");
       setSuccess(true);
-      navigate("/Dashboard");
     } catch (err) {
       if (err.response) {
         if (err.response.status === 401) {
@@ -61,9 +53,7 @@ const Login = () => {
       } else {
         setErrMsg("No server response");
       }
-      if (name === "") {
-        nameInputRef.current.focus();
-      } else if (email === "") {
+      if (email === "") {
         emailInputRef.current.focus();
       } else {
         passwordInputRef.current.focus();
