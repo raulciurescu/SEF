@@ -72,7 +72,7 @@ const Login = () => {
       <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
         {errMsg}
       </p>
-      <h1 className="header">Restaurant's Management</h1>
+      <h1 className="header">Login</h1>
       <div className="title">
         <h2>Manager Register</h2>
         <form className="content" onSubmit={handleLogin}>

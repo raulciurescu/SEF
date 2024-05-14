@@ -4,12 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-pymongo = "*"
-flask-cors = "*"
-qrcode = {extras = ["pil"], version = "*"}
-pycryptodome = "*"
-cryptography = "*"
+crypto = "*"
 
 [dev-packages]
 

@@ -1,6 +1,7 @@
 from flask import jsonify, request, Blueprint
 from flask_cors import CORS
 from MainCreateCollections import DB
+from CriptareDecriptare import decriptare_parola
 
 Login_route = Blueprint('Login_route', __name__)
 
@@ -12,7 +13,7 @@ def Login():
         data = request.json
         email = data.get('email')
         password = data.get('pwd')
-        if DB.Manager.find_one({"ManagerEmail": email, "ManagerPassword": password}) is not None:
+        if DB.Manager.find_one({"ManagerEmail": email, "ManagerPassword": str(decriptare_parola(password))}) is not None:
             return jsonify({"message": "Manager"}), 200
-        elif DB.Staff.find_one({"StaffEmail": email, "StaffPassword": password}) is not None:
+        elif DB.Staff.find_one({"StaffEmail": email, "StaffPassword": str(decriptare_parola(password))}) is not None:
             return jsonify({"message": "Staff"}), 200
