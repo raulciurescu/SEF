@@ -1,54 +1,53 @@
+/* eslint-disable no-restricted-globals */
 import React, { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "./context/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import axios from "./api/axios";
 
-const LOGIN_URL = "/ManagerRegister";
+/* eslint-enable no-restricted-globals */
+
+const LOGIN_URL = "/Login";
+let path = "/Dashboard";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
-  const nameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use useHistory hook
 
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    nameInputRef.current.focus();
+    emailInputRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [name, email, pwd]);
+  }, [email, pwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        LOGIN_URL,
-        {
-          name: name,
-          email: email,
-          pwd: pwd,
-        },
-        {
-          withCredentials: true,
+      const response = axios.post(
+        LOGIN_URL,{
+          email: email, 
+          pwd: pwd
         }
       );
-      console.log(JSON.stringify(response.data));
-      const accessToken = response.data.accessToken;
-      const roles = response.data.roles;
-      setAuth({ name, email, pwd, roles, accessToken });
-      setName("");
+      console.log("Response from backend:", (await response).data.message);
+      if(response.data.message === "Staff"){
+        path = "/DashboardStaff";
+        navigate("/DashboardStaff");
+      }else if(response.data.message === "Manager"){
+        path = "/Dashboard";
+        navigate("/Dashboard");
+      }
       setEmail("");
       setPwd("");
       setSuccess(true);
-      navigate("/Dashboard");
     } catch (err) {
       if (err.response) {
         if (err.response.status === 401) {
@@ -58,31 +57,31 @@ const Login = () => {
         } else {
           setErrMsg("Login failed. Please try again.");
         }
-      } else {
-        setErrMsg("No server response");
-      }
-      if (name === "") {
-        nameInputRef.current.focus();
-      } else if (email === "") {
+      } 
+      if (email === "") {
         emailInputRef.current.focus();
-      } else {
+      } else if(pwd === ""){
         passwordInputRef.current.focus();
       }
     }
   };
   
+  if (success) {
+    return (
+      <section>
+        <h1 className="header">Restaurant's Management</h1>
+        <h2 className="title">Sign In Successful</h2>
+        <br />
+        <Link to={path}>
+          <button className="button">Go to Dashboard</button>
+        </Link>
+      </section>
+    );
+  }
 
   return (
     <>
-      {success ? (
-        <section>
-          <h1>Sign In Successful</h1>
-          <br />
-          <p>
-            <a href="#">Go to home</a>
-          </p>
-        </section>
-      ) : (
+      {(
         <section>
           <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
             {errMsg}
@@ -90,20 +89,9 @@ const Login = () => {
           <h1 className="header">Restaurant's Management</h1>
           <br />
           <div className="title">
-            <h2>Manager Register</h2>
+            <h2>Login</h2>
             <br />
             <form className="content" onSubmit={handleSubmit}>
-              <label htmlFor="name"> Name: </label>
-              <input
-                type="text"
-                id="name"
-                autoComplete="off"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                required
-                ref={nameInputRef}
-              />
-              <br />
               <br />
               <label htmlFor="email"> E-mail: </label>
               <input
@@ -128,15 +116,9 @@ const Login = () => {
               />
               <br />
               <br />
-              <button className="button" type="submit">
+              <button className="button">
                 Login
               </button>
-              <p>
-                Don't have an account?<br />
-                <button>
-                  <Link to="/ManagerLogin">Sign up</Link>
-                </button>
-              </p>
             </form>
           </div>
         </section>

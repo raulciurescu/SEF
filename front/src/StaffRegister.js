@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 const USER_REGEX = /^[a-zA-Z0-9]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]){8,24}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const REGISTER_URL = "/register";
+
+const REGISTER_URL = "/";
 
 const StaffRegister = () => {
     const firstNameRef = useRef();
@@ -84,13 +85,11 @@ const StaffRegister = () => {
         }
         try{
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({firstName, lastName, email, pwd}),
-                
                 {
-                    headers: {
-                        "Content-Type": "application/json",
-                        withCredentials: true,
-                    },
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    pwd: pwd,
                 }
             );
             console.log(response);
@@ -99,10 +98,7 @@ const StaffRegister = () => {
             setSuccess(true);
             // clear input fields
         }catch(err){
-            if(!err?.response){
-                setErrMsg('No Server Response');
-            }
-            else{
+            if(err?.response){
                 if(err.response.status === 409){
                     setErrMsg('User already exists');
                 }else{

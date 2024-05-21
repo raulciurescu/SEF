@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "./context/AuthProvider";
 import { Link } from "react-router-dom";
 import axios from "./api/axios";
-const LOGIN_URL = "/auth";
+
+const LOGIN_URL = "/Login";
 
 const ManagerLogin = () => {
     const { setAuth } = useContext(AuthContext);
@@ -27,34 +28,28 @@ const ManagerLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({email, pwd }),
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    withCredentials: true,
+            const response = await axios.post(
+                LOGIN_URL,{
+                    email: email,
+                    pwd: pwd,
                 }
             );
             console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({email, pwd, roles, accessToken });
+            console.log("Response from backend:", response.data);
+            //setAuth({email, pwd, roles, accessToken });
             setEmail("");
             setPwd("");
             setSuccess(true);    
-            navigate("/Dashboard");
-
         } catch (err) {
-            if (!err.response) {
-                setErrMsg("No server response");
-            } else if (err.response.status === 401) {
-                setErrMsg("Invalid credentials");
-            } else if (err.response.status === 400) {
-                setErrMsg("Missing credentials");
-            } else {
-                setErrMsg("Login failed. Please try again.");
-            }
+            if (err.response) {
+                if (err.response.status === 401) {
+                    setErrMsg("Invalid credentials");
+                } else if (err.response.status === 400) {
+                    setErrMsg("Missing credentials");
+                } else {
+                    setErrMsg("Login failed. Please try again.");
+                }
+            } 
             if (email === "") {
                 emailInputRef.current.focus();
             } else {
@@ -63,17 +58,23 @@ const ManagerLogin = () => {
         }
     }
 
+    if (success) {
+        return (
+          <section>
+            <h1 className="header">Restaurant's Management</h1>
+            <h2 className="title">Sign In Successful</h2>
+            <br />
+            <button>
+              <Link to="/Dashboard">Go to Dashboard</Link>
+            </button>
+          </section>
+        );
+      }
+    
+
     return (
         <>  
-            {success ? (
-                <section>
-                    <h1>Sign In Successful</h1>
-                    <br />
-                    <p>
-                        <a href="#">Go to home</a>
-                    </p>
-                </section>
-            ) : (
+            {(
                 <section>
                     <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1 className="header">Restaurant's Management</h1>

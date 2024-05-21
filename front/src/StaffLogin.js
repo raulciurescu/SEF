@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "./context/AuthProvider";
 import { Link } from "react-router-dom";
 import axios from "./api/axios";
-const LOGIN_URL = "/auth";
+const LOGIN_URL = "/StaffLogin";
 
 const StaffLogin = () => {
     const { setAuth } = useContext(AuthContext);
@@ -26,18 +26,13 @@ const StaffLogin = () => {
         e.preventDefault(); 
         try {
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({name, pwd }),
                 {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    withCredentials: true,
+                    name: name,
+                    pwd: pwd,
                 }
             );
             console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({name, pwd, roles, accessToken });
+            //setAuth({name, pwd});
             setName("");
             setPwd("");
             setSuccess(true);    
@@ -59,6 +54,16 @@ const StaffLogin = () => {
         }
     }
 
+    if (success) {
+        return (
+          <section>
+            <br />
+            <p>
+              <Link to="/DashboardStaff">Go to Dashboard</Link>
+            </p>
+          </section>
+        );
+        }        
     return (
         <>  
             {success ? (
