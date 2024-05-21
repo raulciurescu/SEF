@@ -1,19 +1,14 @@
-/* eslint-disable no-restricted-globals */
-import React, { useRef, useState, useEffect, useContext } from "react";
-import AuthContext from "./context/AuthProvider";
-import { Link , useNavigate } from "react-router-dom";
+import React, { useRef, useState, useEffect } from "react";
+import { Link, useNavigate , Redirect} from "react-router-dom";
 import axios from "./api/axios";
 
-/* eslint-enable no-restricted-globals */
-
-const LOGIN_URL = "/Login";
-let path = "/Dashboard";
+let path = "/ManagerHome";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const navigate = useNavigate(); // Use useHistory hook
+
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
@@ -28,26 +23,28 @@ const Login = () => {
     setErrMsg("");
   }, [email, pwd]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     try {
-      const response = axios.post(
-        LOGIN_URL,{
-          email: email, 
-          pwd: pwd
+      const response = await axios.post(
+        "/Login",
+        {
+          email: email,
+          pwd: pwd,
         }
       );
-      console.log("Response from backend:", (await response).data.message);
-      if(response.data.message === "Staff"){
-        path = "/DashboardStaff";
-        navigate("/DashboardStaff");
-      }else if(response.data.message === "Manager"){
-        path = "/Dashboard";
-        navigate("/Dashboard");
-      }
+      setSuccess(true);
+      console.log(response.data.message);
+      console.log(response.data);
       setEmail("");
       setPwd("");
-      setSuccess(true);
+
+      if (response.data.message === "Manager") {
+        path = "/ManagerHome";
+      } else if (response.data.message === "Staff") {
+        path = "/StaffHome";
+      }
     } catch (err) {
       if (err.response) {
         if (err.response.status === 401) {
@@ -60,71 +57,55 @@ const Login = () => {
       } 
       if (email === "") {
         emailInputRef.current.focus();
-      } else if(pwd === ""){
+      } else {
         passwordInputRef.current.focus();
       }
     }
   };
-  
-  if (success) {
-    return (
-      <section>
-        <h1 className="header">Restaurant's Management</h1>
-        <h2 className="title">Sign In Successful</h2>
-        <br />
-        <Link to={path}>
-          <button className="button">Go to Dashboard</button>
-        </Link>
-      </section>
-    );
-  }
 
+  if(success){
+    window.location.href = path;
+  }
   return (
-    <>
-      {(
-        <section>
-          <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
-            {errMsg}
-          </p>
-          <h1 className="header">Restaurant's Management</h1>
-          <br />
-          <div className="title">
-            <h2>Login</h2>
+    <section>
+      <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+        {errMsg}
+      </p>
+      <h1 className="header">Restaurant's Management</h1>
+      <div className="title">
+        <h2>Log In</h2>
+        <form className="content" onSubmit={handleLogin}>
+          <label htmlFor="email"> E-mail: </label>
+          <input
+            type="text"
+            id="email"
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+            ref={emailInputRef}
+          />
             <br />
-            <form className="content" onSubmit={handleSubmit}>
-              <br />
-              <label htmlFor="email"> E-mail: </label>
-              <input
-                type="text"
-                id="email"
-                autoComplete="off"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                required
-                ref={emailInputRef}
-              />
-              <br />
-              <br />
-              <label htmlFor="password"> Password: </label>
-              <input
-                type="password"
-                id="password"
-                onChange={(e) => setPwd(e.target.value)}
-                value={pwd}
-                required
-                ref={passwordInputRef}
-              />
-              <br />
-              <br />
-              <button className="button">
-                Login
-              </button>
-            </form>
-          </div>
-        </section>
-      )}
-    </>
+            <br />
+          <label htmlFor="password"> Password: </label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={pwd}
+            required
+            ref={passwordInputRef}
+          />
+            <br />
+            <br />
+          <button className="button" type="submit">
+            Login
+          </button>
+          
+        </form>
+      </div>
+    </section>
   );
 };
 
-export default Login;
+export default Login;

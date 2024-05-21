@@ -21,7 +21,7 @@ table_Menu = {
 table_Orders = {
     "StaffID": {"type": "string"}, 
     "OrderID": {"type": "string"},
-    "OrederProducts": {"type": "string"}, 
+    "OrderProducts": {"type": "string"}, 
     "OrderStatus": {"type" : "string"}, 
     "OrderPrice": {"type": "string"},
 }

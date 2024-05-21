@@ -1,28 +1,25 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./HomePage";
 import Login from "./Login";
-import StaffLogin from "./StaffLogin";
-import StaffRegister from "./StaffRegister";
-import ManagerLogin from "./ManagerLogin";
-import DashBoard from "./Dashboard";
+import ManagerHome from "./ManagerHome";
+import StaffHome from "./StaffHome";
+import Staff from "./Staff";
+import Menu from "./Menu";
 import "./App.css";
 
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <>
-        <Route exact path="/" element={<Login />} />
-        <Route path="/Dashboard" element={<DashBoard />} />
-        {/* <Route path="/StaffLogin" element={<StaffLogin />} />
-        <Route path="/ManagerLogin" element={<ManagerLogin />} />
-        <Route path="/StaffRegister" element={<StaffRegister />} /> */}
-        </> 
+      <Routes >
+        <Route exact path="/" element={<Login/>} />
+        <Route path = "/ManagerHome" element={<ManagerHome/>} />
+        <Route path = "/StaffHome" element={<StaffHome/>} />
+        <Route path = "/Staff" element={<Staff/>} />
+        <Route path = "/Menu" element={<Menu/>} />
       </Routes>
     </div>
   );
 }
 
-export default App;
+export default App;

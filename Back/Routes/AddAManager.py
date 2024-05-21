@@ -26,12 +26,13 @@ def Decrypt(s ):
     return shifted_str
 
 from pymongo import MongoClient
-
-db = MongoClient("mongodb://localhost:27017/")
-DB = db["FullAppSef"]
-DB.Manager.insert_one({"ManagerName" : "Teo" , "ManagerEmail" : "teo@gmail.com" , "ManagerPassword" : Encrypt("teo")})
-
-
+def initializare():
+    db = MongoClient("mongodb://localhost:27017/")
+    DB = db["FullAppSef"]
+    DB.Manager.insert_one({"ManagerName" : "Teo" , "ManagerEmail" : "teo@gmail.com" , "ManagerPassword" : Encrypt("teo")})
+    DB.Staff.insert_one({"StaffID" : "1" , "StaffName" : "Raul" , "StaffEmail" : "raul@gmail.com" , "StaffPassword" : Encrypt("raul")})
+    DB.Orders.insert_one({"StaffID" : "" , "OrderID" : "1" , "OrderProducts" : "paste pizza", "OrderStatus" : "Placed", "OrderPrice" : "2000"})
+    DB.Orders.insert_one({"StaffID" : "" , "OrderID" : "2" , "OrderProducts" : "pene", "OrderStatus" : "Placed", "OrderPrice" : "20"})
 
 
 
