@@ -28,7 +28,7 @@ def Client():
         Order_Price = data.get('price')
         DB.Orders.insert_one({"StaffID": StaffID, "OrderID": Order_ID, "OrderProducts": Order_Products, "OrderStatus": Order_Status, "OrderPrice": Order_Price})
         response = jsonify({"message": "Order placed successfully"})
-        return response.message
+        return response
     if request.method == 'GET':
         menu_items = list(DB.Menu.find({}, {"_id": 0}))  # Retrieve menu items from the database
         return jsonify(menu_items)
