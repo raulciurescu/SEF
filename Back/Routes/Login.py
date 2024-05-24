@@ -53,9 +53,14 @@ def Login():
         password = data.get('pwd')
         if DB.Manager.find_one({"ManagerEmail": email, "ManagerPassword": str(Encrypt(password))}) is not None:
             response = jsonify({"message": "Manager"})
-            
-        elif DB.Staff.find_one({"StaffEmail": email, "StaffPassword": str(Encrypt(password))}) is not None:
-            response = jsonify({"message": "Staff"})
-        else: response = jsonify({"message": "Invalid email or password"})
-        return response
+            return response
+        else:   
+            staff = DB.Staff.find_one({"StaffEmail": email, "StaffPassword": str(Encrypt(password))})
+            if staff:
+                staff_id = staff.get('StaffID')
+                response = jsonify({"message": "Staff", "staff_id": staff_id})
+                return response
+            else:
+                response = jsonify({"message": "Invalid email or password"})
+                return response
 

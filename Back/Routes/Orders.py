@@ -21,9 +21,8 @@ def handle_options():
 @Orders_route.route('/Orders', methods=['GET' ])
 def Orders():
     if request.method == 'GET':
-        data = DB.Orders.find()
-        # Convert only the object that have OrderStatus "Placed" ObjectId to string before returning JSON
-        data = [{"_id": str(doc["_id"]), "StaffID": doc["StaffID"], "OrderID": doc["OrderID"], "OrderProducts": doc["OrderProducts"], "OrderStatus": doc["OrderStatus"], "OrderPrice": doc["OrderPrice"]} for doc in data if doc["OrderStatus"] == "Placed"]
+        data = DB.Orders.find({"OrderStatus": "Placed"})
+        data = [{"_id": str(doc["_id"]), "StaffID": doc["StaffID"],"OrderID": doc["OrderID"],  "OrderProducts": doc["OrederProducts"], "OrderStatus": doc["OrderStatus"],"OrderPrice": doc["OrderPrice"]} for doc in data]
         return jsonify(data)
 
 @Orders_route.route('/Orders/<string:order_id>', methods=['PUT'])

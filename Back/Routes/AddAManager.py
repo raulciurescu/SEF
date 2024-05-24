@@ -26,13 +26,16 @@ def Decrypt(s ):
     return shifted_str
 
 from pymongo import MongoClient
-def initializare():
-    db = MongoClient("mongodb://localhost:27017/")
-    DB = db["FullAppSef"]
+db = MongoClient("mongodb://localhost:27017/")
+DB = db["FullAppSef"]
+
+def AddAManager():
     DB.Manager.insert_one({"ManagerName" : "Teo" , "ManagerEmail" : "teo@gmail.com" , "ManagerPassword" : Encrypt("teo")})
     DB.Staff.insert_one({"StaffID" : "1" , "StaffName" : "Raul" , "StaffEmail" : "raul@gmail.com" , "StaffPassword" : Encrypt("raul")})
-    DB.Orders.insert_one({"StaffID" : "" , "OrderID" : "1" , "OrderProducts" : "paste pizza", "OrderStatus" : "Placed", "OrderPrice" : "2000"})
-    DB.Orders.insert_one({"StaffID" : "" , "OrderID" : "2" , "OrderProducts" : "pene", "OrderStatus" : "Placed", "OrderPrice" : "20"})
+    DB.Orders.insert_one({"StaffID" : "" , "OrderID" : "1" , "OrederProducts" : "paste pizza", "OrderStatus" : "Placed", "OrderPrice" : "2000"})
+    DB.Orders.insert_one({"StaffID" : "" , "OrderID" : "2" , "OrederProducts" : "pene", "OrderStatus" : "Placed", "OrderPrice" : "20"})
+    DB.Reservations.insert_one({"ReservationName" : "Raul" , "ReservationPhone" : "0722222222" , "ReservationDate" : "2021-06-01", "ReservationTime" : "12:00", "ReservationStatus" : "Placed"})
+    DB.Reservations.insert_one({"ReservationName" : "Teo" , "ReservationPhone" : "0722222222" , "ReservationDate" : "2021-06-01", "ReservationTime" : "12:00", "ReservationStatus" : "Placed"})
 
 
 
