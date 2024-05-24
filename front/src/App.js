@@ -10,7 +10,9 @@ import PlaceOrder from "./PlaceOrder";
 import ClientReservation from "./ClientReservation";
 import Reservations from "./Reservations"
 import Orders from "./Orders";
+import Final from "./Final";
 import "./App.css";
+
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
         <Route path = "/ClientReservation" element={<ClientReservation/>} />
         <Route path = "/Reservations" element={<Reservations/>} />
         <Route path = "/Orders" element={<Orders/>} />
+        <Route path = "/Final" element={<Final/>} />
       </Routes>
     </div>
   );

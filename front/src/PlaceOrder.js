@@ -114,7 +114,7 @@ const PlaceOrder = () => {
       await axios.post("/table_Orders", orderData);  
   
       
-      navigate('/final', { state: { orderStatus: "Placed" } });
+      navigate('/Final', { state: { orderStatus: "Placed" } });
   
       setMyOrder([]);
       setTotalPrice(0);
@@ -126,7 +126,7 @@ const PlaceOrder = () => {
 
   return (
     <div className="container">
-      <h1>Place Order</h1>
+      <h2>Place Order</h2>
       <div className="menu-container">
         {menuItems.map((item) => (
             <div key={item._id} className="menu-item">

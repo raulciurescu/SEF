@@ -35,7 +35,7 @@ const Reservation = () => {
                     phone: phone,
                     date: date,
                     time: time,
-                    status: "Pending"
+                    status: "Placed"
                 }
             );
             setSuccess(true);
