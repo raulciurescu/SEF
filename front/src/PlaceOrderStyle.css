@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #adadc5;
+  }
+  
+  h1, h2, h3 {
+    color: #336061;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .menu-container, .order-container {
+    background: #beddc8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .menu-item, .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+  }
+  
+  .menu-item:last-child, .order-item:last-child {
+    border-bottom: none;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #336061;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #a8eaeb;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .cart-button {
+    background-color: #8edca0;
+  }
+  
+  .cart-button:hover {
+    background-color: #218838;
+  }
+  
+  .order-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .order-buttons button {
+    width: 100px;
+  }
+  
+  .item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .item-quantity button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+  }
+  
+  .item-quantity input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  .empty-cart, .empty-order {
+    text-align: center;
+    color: #888;
+  }
+  
+  .total-price {
+    text-align: right;
+    font-size: 1.2em;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .menu-item, .order-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .item-quantity {
+      margin-top: 10px;
+    }
+  
+    .order-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  

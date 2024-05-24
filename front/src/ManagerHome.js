@@ -8,18 +8,17 @@ const ManagerHome = () => {
             <>
                 {(
                     <section>
-                    
-                    <br />
+                    <h1 className="header">Restaurant's Management</h1>
                         <div className="title">
                             <h2>Manager Home</h2>
                             <br />
                             <br />
-                            <button className="button" type="submit" onClick={() => window.location.href = "/Menu"}>
+                            <button className="checkout-btn" type="submit" onClick={() => window.location.href = "/Menu"}>
                                 Menu  
                             </button> 
                             <br/>
                             <br/>
-                            <button className="button" type="submit" onClick={() => window.location.href = "/Staff"}>
+                            <button className="checkout-btn" type="submit" onClick={() => window.location.href = "/Staff"}>
                                 Staff
                             </button>
                         </div>

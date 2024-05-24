@@ -95,7 +95,7 @@ const Staff = () => {
         <section>            
             <h1 className="header">Restaurant's Management</h1>
             <h2 className="title">Employee Register</h2>
-            <button className="button" onClick={() => setShowAddButton(true)}>Hire</button>
+            <button className="checkout-btn" onClick={() => setShowAddButton(true)}>Hire</button>
             {showAddForm && (
                 <div>
                 <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
@@ -147,7 +147,7 @@ const Staff = () => {
                 />
                 <br />
                 <br />
-                <button className="button" type="submit">
+                <button className="checkout-btn" type="submit">
                     Add Employee
                 </button>
                 </form>
@@ -173,7 +173,7 @@ const Staff = () => {
                             <td>{employee.StaffEmail}</td>
                             <td>{employee.StaffPassword}</td>
                             <td>
-                                <button className="button" onClick={() => handleDelete(employee.StaffID)}>Delete</button>
+                                <button className="checkout-btn" onClick={() => handleDelete(employee.StaffID)}>Delete</button>
                             </td>
                         </tr>
                     ))}

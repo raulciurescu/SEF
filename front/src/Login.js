@@ -98,7 +98,7 @@ const Login = () => {
           />
             <br />
             <br />
-          <button className="button" type="submit">
+          <button className="checkout-btn" type="submit">
             Login
           </button>
           

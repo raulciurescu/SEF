@@ -8,12 +8,29 @@
 
 
 .header {
-  background-color:#336061;
-  font-size: 20px;
-  padding: 25px;
+  background-image: url('restaurant.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 27vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
-  margin-top: 0%;
+  margin-top: 0;
+  text-align: center;
+  padding: 0;
+  overflow: hidden;
 }
+
+.header:hover {
+  height: 40vh; 
+}
+
+.header:hover::before {
+  opacity: 0.8; 
+}
+
 
 .text{
   font-size: 20px;
@@ -96,4 +113,78 @@
 
 .table tr:hover {
   background-color: #e0e0e0;
+}
+
+.menu-item, .cart-item {
+  flex: 1 1 300px;
+  margin: 10px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item h3, .cart-item h3 {
+  font-size: 20px;
+  color: #007bff;
+  margin: 0 0 10px;
+}
+
+.menu-item p, .cart-item p {
+  font-size: 16px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.menu-item button, .cart-item button, .checkout-btn, .remove-btn {
+  background-color: #3bc4ea;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item button:hover, .cart-item button:hover, .checkout-btn:hover, .remove-btn:hover {
+  background-color: #336061;
+}
+
+.cart {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul li button {
+  background-color: #dc3545;
+}
+
+ul li button:hover {
+  background-color: #c82333;
+}
+
+.cart-total, .checkout-btn {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.cart-total p {
+  font-size: 20px;
+  color: #333;
 }

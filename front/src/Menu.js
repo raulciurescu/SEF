@@ -92,7 +92,7 @@ const Menu = () => {
                 <h1 className="header">Restaurant's Management</h1>
                 <div className="title">
                 <h2>Menu</h2>
-                <button className="button" onClick={() => setShowAddForm(true)}>+</button>
+                <button className="checkout-btn" onClick={() => setShowAddForm(true)}>+</button>
                 {showAddForm && (
                     <div>
                         <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
@@ -143,7 +143,7 @@ const Menu = () => {
                         />
                         <br />
                         <br />
-                        <button className="button" type="submit">
+                        <button className="checkout-btn" type="submit">
                             Add Dish
                         </button>
                         </form>
@@ -169,7 +169,7 @@ const Menu = () => {
                                 <td>{item.Description}</td>
                                 <td>{item.Price}</td>
                                 <td>
-                                    <button className="button" onClick={() => handleDelete(item._id)}>-</button>
+                                    <button className="checkout-btn" onClick={() => handleDelete(item._id)}>-</button>
                                 </td>
                             </tr>
                         ))}
